@@ -1,5 +1,9 @@
-function createAudioElement () {
-  var source = document.createElement('source')
+function createAudioElement (blobURL) {
+  var audio = document.createElement('audio')
+  audio.setAttribute('src', blobURL)
+  audio.setAttribute('controls', 'controls')
+
+  return audio
 }
 
 navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
@@ -11,7 +15,9 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
 
       if (recorder.state == 'inactive') {
           const blob = new Blob(chunks, { type: 'audio/wav' })
-          createAudioElement(URL.createObjectURL(blob))
+          const blobURL = URL.createObjectURL(blob)
+          const audioElement = createAudioElement(blobURL)
+          document.querySelector('#audioPlayback').appendChild(audioElement)
       }
     }
 
@@ -23,39 +29,3 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
     })
 
   }).catch(console.error)
-
-
-// if (navigator.getUserMedia) {
-//   console.log('getUserMedia supported.')
-//   var constraints = { audio: true }
-// }
-// else {
-//   console.log('getUserMedia not supported')
-// }
-//
-// var mediaRecorder = new MediaRecorder(stream)
-//
-// record.onclick = () => {
-//   mediaRecorder.start()
-//   console.log(mediaRecorder.state)
-//   console.log('recording started')
-// }
-//
-// var chunks = []
-//
-// mediaRecorder.ondataavailable = (audioData) => {
-//   chunks.push(audioData.data)
-// }
-//
-// stop.onclick = () => {
-//   mediaRecord.stop()
-//   console.log(mediaRecorder.state)
-//   console.log('stopped recording')
-// }
-
-// function createAudioElement(blobURL) {
-//   var source = document.createElement('source')
-//   source.src = blobURL
-//   source.type = 'audio/wav'
-// }
-//
