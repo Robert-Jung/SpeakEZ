@@ -1,2 +1,3 @@
 # watson
-A web application for inventory mangers who went to search (e.g. sku, price, etc) by voice.
+A web app for business owners who want to input and search inventory by voice.
+
