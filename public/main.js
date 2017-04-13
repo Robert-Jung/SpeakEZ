@@ -1,14 +1,7 @@
-function createAudioElement(blobURL) {
-  var audio = document.createElement('audio')
-  audio.setAttribute('src', blobURL)
-  audio.setAttribute('controls', 'controls')
-
-  return audio
-}
-
 navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
   var chunks = [];
   var recorder = new MediaRecorder(stream)
+  var audioElement = document.querySelector('#audioPlayback')
   let blobURL
 
   recorder.ondataavailable = e => {
@@ -20,8 +13,7 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
       }
       const blob = new Blob(chunks, { type: 'audio/wav' })
       blobURL = URL.createObjectURL(blob)
-      const audioElement = createAudioElement(blobURL)
-      document.querySelector('#audioPlayback').appendChild(audioElement)
+      audioElement.setAttribute('src', blobURL)
     }
   }
 
