@@ -1,7 +1,7 @@
 {
   "name": "watson",
   "version": "1.0.0",
-  "description": "A web app for inventory managers who want to record accurate inventory count.",
+  "description": "A web app for business owners who want to input and search inventory by voice.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
