@@ -31,7 +31,7 @@ function uploadFile(blob) {
   let formData = new FormData()
   formData.append('file', blob, 'audio.wav')
 
-  fetch('/audio', {
+  fetch('/upload', {
     method: 'POST',
     body: formData
   }).then(data => {

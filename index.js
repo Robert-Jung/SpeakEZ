@@ -9,10 +9,11 @@ var app = express()
 app.use(express.static('public'))
 app.use(bodyParser.json())
 
-var upload = multer({ destin: 'audio/'})
+var upload = multer({ dest: 'upload/'})
 
-app.post('/audio', upload.single('file'), (req,res) => {
+app.post('/upload', upload.single('file'), (req,res) => {
   console.log(req.file)
+  res.sendStatus(200)
 })
 
 app.listen(3000, () => {
