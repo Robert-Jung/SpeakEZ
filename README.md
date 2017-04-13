@@ -1,2 +1,2 @@
 # watson
-A web app for inventory managers who want to record accurate inventory count.
+A web app for business owners who want to input/search inventory by voice.
