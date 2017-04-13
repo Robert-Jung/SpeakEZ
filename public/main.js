@@ -14,6 +14,7 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
       const blob = new Blob(chunks, { type: 'audio/wav' })
       blobURL = URL.createObjectURL(blob)
       audioElement.setAttribute('src', blobURL)
+      uploadFile(blob)
     }
   }
 
@@ -25,3 +26,17 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
   })
 
 }).catch(console.error)
+
+function uploadFile(blob) {
+  let formData = new FormData()
+  formData.append('file', blob, 'audio.wav')
+
+  fetch('/audio', {
+    method: 'POST',
+    body: formData
+  }).then(data => {
+    console.log('Request Success', data)
+  }).catch(error => {
+    console.log('Request Failed')
+  })
+}
