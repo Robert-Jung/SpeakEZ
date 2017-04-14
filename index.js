@@ -4,22 +4,32 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var multer = require('multer')
 var ffmpeg = require('fluent-ffmpeg')
-var audio = '/Users/home/watson/upload/6004f5b2bc5ab26d0fa7573d46b9bafb'
+var autoReap = require('multer-autoreap')
 
 var app = express()
-
 app.use(express.static('public'))
 app.use(bodyParser.json())
 
-//upload audio
-var upload = multer({ dest: 'upload/'})
+//upload audio blob
+var upload = multer({ storage: storage })
 
-app.post('/upload', upload.single('file'), (req,res) => {
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './tmp/')
+  },
+  filename: function (req, file, cb) {
+      cb(null,  file.originalname );
+  }
+});
+
+app.post('/tmp', upload.single('file'), (req,res) => {
   console.log(req.file)
   res.sendStatus(200)
 })
 
 //convert audio
+var audio = '/tmp/audio'
+
 ffmpeg(audio)
 .toFormat('wav')
 .on('error', () => {
@@ -28,7 +38,7 @@ ffmpeg(audio)
 .on('end', () => {
   console.log('Finished!')
 })
-.save('./upload/audio.wav')
+.save('./transcribe/audio.wav')
 
 app.listen(3000, () => {
   console.log('Listening on port 3000')
