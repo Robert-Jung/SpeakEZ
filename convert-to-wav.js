@@ -1,4 +1,5 @@
 module.exports = function convertToWav(pathToFile) {
+  var ffmpeg = require('fluent-ffmpeg')
   return new Promise((resolve, reject) => {
     ffmpeg(pathToFile)
       .toFormat('wav')
