@@ -3,23 +3,23 @@ var fs = require('fs')
 var express = require('express')
 var bodyParser = require('body-parser')
 var multer = require('multer')
-var ffmpeg = require('fluent-ffmpeg')
 var convertToWav = require('./convert-to-wav')
+var deleteWav = require('./delete-wav')
 
 var app = express()
 app.use(express.static('public'))
 app.use(bodyParser.json())
 
-//upload audio blob and convert to audio wav
 var upload = multer({ dest:'tmp/' })
 
 app.post('/tmp', upload.single('file'), (req,res) => {
   console.log(req.file)
   convertToWav(req.file.path)
-    .then(() => {
+    .then( () => {
+      deleteWav(req.file.path)
       res.sendStatus(200)
     })
-    .catch(() => {
+    .catch( () => {
       res.sendStatus(500)
   })
 })
