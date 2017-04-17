@@ -1,6 +1,6 @@
 module.exports = function deleteWav(pathToFile) {
   var fs = require('fs')
-  fs.unlink(pathToFile, (err) => {
+  fs.unlinkSync(pathToFile, (err) => {
     if (err) {
       return console.error(err)
     }

@@ -12,7 +12,7 @@ app.use(bodyParser.json())
 
 var upload = multer({ dest:'tmp/' })
 
-app.post('/tmp', upload.single('file'), (req,res) => {
+app.post('/command', upload.single('file'), (req,res) => {
   console.log(req.file)
   convertToWav(req.file.path)
     .then((fileName) => {
