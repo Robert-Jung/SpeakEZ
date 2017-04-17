@@ -14,17 +14,18 @@ var upload = multer({ dest:'tmp/' })
 
 app.post('/tmp', upload.single('file'), (req,res) => {
   console.log(req.file)
-  var audioFile = convertToWav(req.file.path)
-    .then( () => {
+  convertToWav(req.file.path)
+    .then((fileName) => {
       deleteWav(req.file.path)
-      res.sendStatus(200)
+      return callWatson('./transcribe/' + fileName)
+    })
+    .then((transcription) => {
+      res.json(transcription)
     })
     .catch( () => {
       res.sendStatus(500)
   })
 })
-
-callWatson('/Users/home/watson/transcribe/audio1492206836348.wav')
 
 app.listen(3000, () => {
   console.log('Listening on port 3000')

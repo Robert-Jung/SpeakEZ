@@ -1,6 +1,7 @@
+var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1')
+var fs = require('fs')
+
 module.exports = function callWatson(audioFile) {
-  var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1')
-  var fs = require('fs')
   var speech_to_text = new SpeechToTextV1({
     username: "913fcb97-7161-40a4-be85-539b7cd4037c",
     password: "B2n3Q23KKYeV",
@@ -23,7 +24,4 @@ module.exports = function callWatson(audioFile) {
     }
   })
 
-  fs.createReadStream(audioFile)
-    .pipe(speech_to_text.createRecognizeStream({content_type: 'audio/wav'}))
-    .pipe(fs.createWriteStream(__dirname + '/transcription.txt'))
 }

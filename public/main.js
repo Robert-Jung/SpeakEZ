@@ -34,8 +34,11 @@ function uploadFile(blob) {
   fetch('/tmp', {
     method: 'POST',
     body: formData
-  }).then(data => {
-    console.log('Request Success', data)
+  }).then(response => {
+    return response.json()
+  }).then(json => {
+    var transcriptionBox = document.getElementById('transcribed-text')
+    transcriptionBox.innerHTML = json
   }).catch(error => {
     console.log('Request Failed')
   })
