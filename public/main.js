@@ -31,11 +31,14 @@ function uploadFile(blob) {
   let formData = new FormData()
   formData.append('file', blob, 'audio.wav')
 
-  fetch('/upload', {
+  fetch('/command', {
     method: 'POST',
     body: formData
-  }).then(data => {
-    console.log('Request Success', data)
+  }).then(response => {
+    return response.json()
+  }).then(json => {
+    var transcriptionBox = document.getElementById('transcribed-text')
+    transcriptionBox.innerHTML = json
   }).catch(error => {
     console.log('Request Failed')
   })
