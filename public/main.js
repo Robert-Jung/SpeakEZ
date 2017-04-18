@@ -53,8 +53,32 @@ function searchString(transcription) {
     console.log('Please use keyword \"search\" followed by upc numbers')
   }
   else {
-    console.log('Searching...')
+    findValue(searchArray)
   }
+}
+
+function findValue(arr) {
+ var newNumber = []
+ var numbers = [
+  { name: 'one', value: 1},
+  { name: 'two', value: 2},
+  { name: 'three', value: 3},
+  { name: 'four', value: 4},
+  { name: 'five', value: 5},
+  { name: 'six', value: 6},
+  { name: 'seven', value: 7},
+  { name: 'eight', value: 8},
+  { name: 'nine', value: 9},
+  { name: 'zero', value: 0}
+  ]
+
+  for (var i = 0; i < numbers.length; i++) {
+    for (var j = 0; j < arr.length; j++) {
+      if (arr[j] === numbers[i].name) {
+        newNumber.push(numbers[i].value)
+      }
+    }
+  } return newNumber.join('')
 }
 
 function fetchProduct() {
