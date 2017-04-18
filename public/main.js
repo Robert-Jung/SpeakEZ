@@ -44,7 +44,18 @@ function uploadFile(blob) {
   })
 }
 
+function searchString(transcription) {
+  var space = ' '
+  var searchArray = (transcription.split(space))
+  var isSearch = searchArray.includes('search')
 
+  if (!isSearch) {
+    console.log('Please use keyword \"search\" followed by upc numbers')
+  }
+  else {
+    console.log('Searching...')
+  }
+}
 
 function fetchProduct() {
   var fetchPromise = fetch('/product')
