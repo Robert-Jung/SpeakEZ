@@ -36,8 +36,11 @@ function uploadFile(blob) {
     body: formData
   }).then(response => {
     return response.json()
-  }).then(json => {
-    console.log(json)
+  }).then( json => {
+    return renderProduct(json)
+  }).then( $product => {
+    var $main = document.querySelector('#main')
+    $main.appendChild($product)
   }).catch(error => {
     console.log('Request Failed')
   })

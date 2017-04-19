@@ -44,8 +44,10 @@ app.post('/command', upload.single('file'), (req, res) => {
     }).then( transcription => {
       return searchString(transcription)
     }).then( productUPC => {
+      console.log(productUPC)
       return findProduct(productUPC, products)
     }).then( product => {
+      console.log(product)
       res.json(product)
     }).catch( () => {
       res.sendStatus(500)
