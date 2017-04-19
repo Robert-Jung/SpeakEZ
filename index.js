@@ -13,19 +13,16 @@ var products = [
     upc: '1234',
     name: 'hot wheels',
     inventory: 12,
-    price: 13.99
   },
   {
     upc: '5784',
     name: 'doll',
     inventory: 23,
-    price: 1.99
   },
   {
     upc: '0012',
     name: 'catan',
     inventory: 50,
-    price: 48.71
   }
 ]
 

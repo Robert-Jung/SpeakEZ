@@ -9,32 +9,61 @@
     <title>Watson Inventory</title>
   </head>
   <body>
-    <div class="container-fluid">
+    <div id="top" class="container-fluid">
       <div class="row">
-        <button id="record" class="btn btn-floating btn-large pulse">Start</button>
-        <button id="stopRecord" class="btn btn-floating btn-large red pulse">Stop</button>
+        <div class="button-group col s6">
+          <button id="record" class="btn btn-floating btn-large green accent-4">Start</button>
+          <button id="stopRecord" class="btn btn-floating btn-large red accent-3">Stop</button>
+        </div>
+        <div id="text-box" class="col s6">
+          <h5>Transcribed Audio</h5>
+          <div id="transcribed-text">
+          </div>
+        </div>
       </div>
       <div class="row">
         <audio id ="audioPlayback" controls = "controls"></audio>
       </div>
-      <div class="row">
-        <div id="transcribed-text">
-        </div>
-      </div>
     </div>
     <div id="main" class="container-fluid">
-      <table class="striped">
-        <thead>
-          <tr>
-              <th>UPC</th>
-              <th>PRODUCT</th>
-              <th>INVENTORY</th>
-              <th>PRICE</th>
-          </tr>
-        </thead>
-        <tbody id="list-products">
-        </tbody>
-      </table>
+      <div class="row">
+        <div id="search" class="col s6">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>UPC</th>
+                <th>PRODUCT</th>
+                <th>INVENTORY</th>
+              </tr>
+            </thead>
+            <tbody id="list-products">
+            </tbody>
+          </table>
+        </div>
+        <div id="enter-product-form" class="col s6">
+          <form class="col s12">
+            <span>Enter Product:</span>
+            <div class="row">
+              <div class="input-field">
+                <input id="upc">
+                <label for="upc">UPC</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input id="name">
+                <label for="name">PRODUCT NAME</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input id="inventory">
+                <label for="inventory">QUANTITY</label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
     <script src="main.js"></script>
   </body>

@@ -51,17 +51,14 @@ function renderProduct(product) {
   var $upc = document.createElement('td')
   var $name = document.createElement('td')
   var $inventory = document.createElement('td')
-  var $price = document.createElement('td')
 
   $upc.textContent = product.upc
   $name.textContent = product.name
   $inventory.textContent = product.inventory
-  $price.textContent = '$' + product.price
 
   $product.appendChild($upc)
   $product.appendChild($name)
   $product.appendChild($inventory)
-  $product.appendChild($price)
 
   return $product
 }
