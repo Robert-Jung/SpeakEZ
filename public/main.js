@@ -37,16 +37,20 @@ function uploadFile(blob) {
   }).then(response => {
     return response.json()
   }).then( json => {
-    return renderProduct(json)
-  }).then( $product => {
-    var $listProducts = document.querySelector('#list-products')
-    $listProducts.appendChild($product)
+    return renderProduct(json.data, json.transcription)
+  }).then( collection => {
+    var $product = collection[0]
+    var $transcription = collection[1]
+    document.querySelector('#list-products').appendChild($product)
+    document.querySelector('#transcribed-text').appendChild($transcription)
   }).catch(error => {
     console.log('Request Failed')
   })
 }
 
-function renderProduct(product) {
+function renderProduct(product, transcription) {
+  var collection = []
+
   var $product = document.createElement('tr')
   var $upc = document.createElement('td')
   var $name = document.createElement('td')
@@ -60,5 +64,11 @@ function renderProduct(product) {
   $product.appendChild($name)
   $product.appendChild($inventory)
 
-  return $product
+  var $transcription = document.createElement('span')
+  $transcription.textContent = transcription
+
+  collection.push($product)
+  collection.push($transcription)
+
+  return collection
 }

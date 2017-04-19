@@ -4,7 +4,10 @@ module.exports = function searchString(transcription) {
   var isSearch = searchArray.includes('search')
 
   return new Promise((resolve, reject) => {
-    var productUPC = convertToValue(searchArray)
+    var productUPC = {
+    transcription: transcription,
+    data: convertToValue(searchArray)
+    }
 
     if (!isSearch) {
       reject(new Error('Please use keyword \"search\" followed by upc numbers'))
