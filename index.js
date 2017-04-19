@@ -54,15 +54,6 @@ app.post('/command', upload.single('file'), (req, res) => {
   })
 })
 
-app.post('/product', (req, res) => {
-  var product = req.body
-    products.push(product)
-})
-
-app.get('/product', (req, res) => {
-  res.json(products)
-})
-
 app.listen(3000, () => {
   console.log('Listening on port 3000')
 })
