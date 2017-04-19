@@ -39,29 +39,24 @@ function uploadFile(blob) {
   }).then( json => {
     return renderProduct(json)
   }).then( $product => {
-    var $main = document.querySelector('#main')
-    $main.appendChild($product)
+    var $listProducts = document.querySelector('#list-products')
+    $listProducts.appendChild($product)
   }).catch(error => {
     console.log('Request Failed')
   })
 }
 
 function renderProduct(product) {
-  var $product = document.createElement('row')
-  var $upc = document.createElement('div')
-  var $name = document.createElement('div')
-  var $inventory = document.createElement('div')
-  var $price = document.createElement('div')
+  var $product = document.createElement('tr')
+  var $upc = document.createElement('td')
+  var $name = document.createElement('td')
+  var $inventory = document.createElement('td')
+  var $price = document.createElement('td')
 
   $upc.textContent = product.upc
   $name.textContent = product.name
   $inventory.textContent = product.inventory
   $price.textContent = '$' + product.price
-
-  $upc.setAttribute('class','col-md-2')
-  $name.setAttribute('class', 'col-md-4')
-  $inventory.setAttribute('class','col-md-2')
-  $inventory.setAttribute('class','col-md-2')
 
   $product.appendChild($upc)
   $product.appendChild($name)
