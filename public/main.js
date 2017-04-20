@@ -1,11 +1,10 @@
 navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-  var chunks = [];
   var recorder = new MediaRecorder(stream)
   var audioElement = document.querySelector('#audioPlayback')
   let blobURL
 
   recorder.ondataavailable = e => {
-    chunks.push(e.data)
+    var chunks = [e.data]
 
     if (recorder.state === 'inactive') {
       if (blobURL) {
@@ -96,7 +95,7 @@ function checkCommand(responseObject) {
   else if (responseObject.command === 'confirm') {
 
   }
-  else {
+  else if (responseObject.command === 'error') {
     alert('Please input correct keyword')
   }
 }

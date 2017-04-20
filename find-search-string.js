@@ -1,9 +1,9 @@
 module.exports = function searchString(transcription) {
   var transcriptionArray = (transcription.split(' '))
   var isSearch = transcriptionArray.includes('search')
-  var enterUPC = transcriptionArray.includes('code', 'enter')
-  var enterName = transcriptionArray.includes('name', 'enter')
-  var enterInventory = transcriptionArray.includes('inventory', 'enter')
+  var enterUPC = checkIncludes('enter', 'code', transcription)
+  var enterName = checkIncludes('enter', 'name', transcription)
+  var enterInventory = checkIncludes('enter', 'inventory', transcription)
   var isConfirm = transcriptionArray.includes('confirm')
 
   var productObj = {
@@ -18,13 +18,15 @@ module.exports = function searchString(transcription) {
     return productObj
   }
   else if (enterUPC) {
+    console.log(enterUPC)
     productObj.command = 'enter code'
     productObj.data = convertToValue(transcriptionArray)
     return productObj
   }
   else if (enterName) {
     productObj.command = 'enter name'
-    productObj.data = removeAddName(transcriptionArray)
+    convertToValue(transcriptionArray)
+    productObj.data = transcriptionArray.slice(2)
     return productObj
   }
   else if (enterInventory) {
@@ -37,7 +39,8 @@ module.exports = function searchString(transcription) {
     return productObj
   }
   else {
-    console.log('error')
+    productObj.command = 'error'
+    return productObj
   }
 }
 
@@ -54,6 +57,7 @@ function lookUpNum(numString) {
   var numbers = [
     { name: 'one', value: 1},
     { name: 'two', value: 2},
+    { name: 'to', value: 2},
     { name: 'three', value: 3},
     { name: 'four', value: 4},
     { name: 'five', value: 5},
@@ -71,19 +75,14 @@ function lookUpNum(numString) {
   }
 }
 
-function removeAddName(arr) {
-  var add = transcriptionArray.indexOf('add')
-  var name = transcriptionArray.indexOf('name')
-
-  for (var i = 0; i < transcriptionArray.length; i++) {
-    if (transcriptionArray[i] === 'add') {
-      if (add > -1) {
-        transcriptionArray.splice(add, 1)
-      }
-    }
-    if (transcriptionArray[i] === 'name') {
-      if (add > -1) {
-        transcriptionArray.splice(name, 1)
+function checkIncludes(string1, string2, arr) {
+  for (var i =0; i < arr.length; i++){
+    if(arr.includes(string1)){
+       if(arr.includes(string2)){
+         return true
+       }
+      else {
+        return false
       }
     }
   }

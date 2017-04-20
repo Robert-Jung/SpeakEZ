@@ -41,7 +41,6 @@ app.post('/command', upload.single('file'), (req, res) => {
     }).then( transcription => {
       return searchString(transcription)
     }).then( productObj => {
-      console.log(productObj)
       return findProduct(productObj, products)
     }).then( product => {
       console.log(product)
