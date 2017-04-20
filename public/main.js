@@ -37,13 +37,10 @@ function uploadFile(blob) {
   }).then(response => {
     return response.json()
   }).then( json => {
-    return renderProduct(json.data, json.transcription)
-  }).then( collection => {
-    var $product = collection[0]
-    var $transcription = collection[1]
-    document.querySelector('#list-products').appendChild($product)
-    document.querySelector('#transcribed-text').appendChild($transcription)
-  }).catch(error => {
+    console.log(json)
+    checkCommand(json)
+  })
+.catch(error => {
     console.log('Request Failed')
   })
 }
@@ -71,4 +68,35 @@ function renderProduct(product, transcription) {
   collection.push($transcription)
 
   return collection
+}
+
+function checkCommand(responseObject) {
+  if (responseObject.command === 'search') {
+    var collection = renderProduct(responseObject.data, responseObject.transcription)
+    var $product = collection[0]
+    var $transcription = collection[1]
+    document.querySelector('#list-products').appendChild($product)
+    document.querySelector('#transcribed-text').appendChild($transcription)
+  }
+  else if (responseObject.command === 'enter code') {
+    var input = document.querySelector('#upc')
+    input.value = responseObject.data
+    input.focus()
+  }
+  else if (responseObject.command === 'enter name') {
+    var input = document.querySelector('#name')
+    input.value = responseObject.data
+    input.focus()
+  }
+  else if (responseObject.command === 'enter inventory') {
+    var input = document.querySelector('#inventory')
+    input.value = responseObject.data
+    input.focus()
+  }
+  else if (responseObject.command === 'confirm') {
+
+  }
+  else {
+    alert('Please input correct keyword')
+  }
 }

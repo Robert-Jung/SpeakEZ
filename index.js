@@ -40,9 +40,9 @@ app.post('/command', upload.single('file'), (req, res) => {
       return callWatson('./transcribe/' + fileName)
     }).then( transcription => {
       return searchString(transcription)
-    }).then( productUPC => {
-      console.log(productUPC)
-      return findProduct(productUPC, products)
+    }).then( productObj => {
+      console.log(productObj)
+      return findProduct(productObj, products)
     }).then( product => {
       console.log(product)
       res.json(product)

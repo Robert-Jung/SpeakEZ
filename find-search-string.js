@@ -1,21 +1,44 @@
 module.exports = function searchString(transcription) {
-  var space = ' '
-  var searchArray = (transcription.split(space))
-  var isSearch = searchArray.includes('search')
+  var transcriptionArray = (transcription.split(' '))
+  var isSearch = transcriptionArray.includes('search')
+  var enterUPC = transcriptionArray.includes('code', 'enter')
+  var enterName = transcriptionArray.includes('name', 'enter')
+  var enterInventory = transcriptionArray.includes('inventory', 'enter')
+  var isConfirm = transcriptionArray.includes('confirm')
 
-  return new Promise((resolve, reject) => {
-    var productUPC = {
+  var productObj = {
     transcription: transcription,
-    data: convertToValue(searchArray)
-    }
+    command: '',
+    data: ''
+  }
 
-    if (!isSearch) {
-      reject(new Error('Please use keyword \"search\" followed by upc numbers'))
-    }
-    else {
-      resolve(productUPC)
-    }
-  })
+  if (isSearch) {
+    productObj.command = 'search'
+    productObj.data = convertToValue(transcriptionArray)
+    return productObj
+  }
+  else if (enterUPC) {
+    productObj.command = 'enter code'
+    productObj.data = convertToValue(transcriptionArray)
+    return productObj
+  }
+  else if (enterName) {
+    productObj.command = 'enter name'
+    productObj.data = removeAddName(transcriptionArray)
+    return productObj
+  }
+  else if (enterInventory) {
+    productObj.command = 'enter inventory'
+    productObj.data = convertToValue(transcriptionArray)
+    return productObj
+  }
+  else if (isConfirm) {
+    productObj.command = 'confirm'
+    return productObj
+  }
+  else {
+    console.log('error')
+  }
 }
 
 function convertToValue(arr) {
@@ -44,6 +67,24 @@ function lookUpNum(numString) {
   for (var i = 0; i < numbers.length; i++) {
     if(numString === numbers[i].name) {
       return numbers[i].value
+    }
+  }
+}
+
+function removeAddName(arr) {
+  var add = transcriptionArray.indexOf('add')
+  var name = transcriptionArray.indexOf('name')
+
+  for (var i = 0; i < transcriptionArray.length; i++) {
+    if (transcriptionArray[i] === 'add') {
+      if (add > -1) {
+        transcriptionArray.splice(add, 1)
+      }
+    }
+    if (transcriptionArray[i] === 'name') {
+      if (add > -1) {
+        transcriptionArray.splice(name, 1)
+      }
     }
   }
 }
