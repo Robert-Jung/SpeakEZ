@@ -1,3 +1,28 @@
+body {
+  background-color: #1b1e27;
+  color: white;
+}
+
+button {
+  margin: 20px;
+}
+
+td {
+  background-color: #1b1e27;
+}
+
+#top {
+  height: 250px;
+}
+
 #audioPlayback {
   display: none;
+}
+
+.progress {
+  display: contents;
+}
+
+.button-group {
+  padding: 80px;
 }

@@ -21,8 +21,7 @@ module.exports = function callWatson(audioFile) {
         reject(err)
       }
       else {
-        console.log(res)
-        resolve(res.results[0].alternatives[0].transcript)
+        resolve(res.results[0].alternatives[0].transcript.trim())
       }
     })
   })

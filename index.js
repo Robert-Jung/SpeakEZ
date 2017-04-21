@@ -5,7 +5,7 @@ var multer = require('multer')
 var convertToWav = require('./convert-to-wav')
 var deleteWav = require('./delete-wav')
 var searchString = require('./find-search-string')
-var findProduct = require('./find-product.js')
+var findProduct = require('./find-product')
 var callWatson = require('./call-watson')
 
 var products = [
@@ -13,25 +13,23 @@ var products = [
     upc: '1234',
     name: 'hot wheels',
     inventory: 12,
-    price: 13.99
   },
   {
     upc: '5784',
     name: 'doll',
     inventory: 23,
-    price: 1.99
   },
   {
     upc: '0012',
     name: 'catan',
     inventory: 50,
-    price: 48.71
   }
 ]
 
 var app = express()
 app.use(express.static('public'))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 var upload = multer({ dest:'tmp/' })
 
@@ -43,15 +41,20 @@ app.post('/command', upload.single('file'), (req, res) => {
       return callWatson('./transcribe/' + fileName)
     }).then( transcription => {
       return searchString(transcription)
-    }).then( productUPC => {
-      console.log(productUPC)
-      return findProduct(productUPC, products)
+    }).then( productObj => {
+      return findProduct(productObj, products)
     }).then( product => {
       console.log(product)
       res.json(product)
     }).catch( () => {
       res.sendStatus(500)
   })
+})
+
+app.post('/newinventory', (req, res) => {
+    var newInventory = req.body
+    products.push(newInventory)
+    res.status(201).json(products)
 })
 
 app.listen(3000, () => {

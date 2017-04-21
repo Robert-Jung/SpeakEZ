@@ -9,33 +9,71 @@
     <title>Watson Inventory</title>
   </head>
   <body>
-    <div class="container-fluid">
-      <div class="row">
-        <button id="record" class="btn btn-floating btn-large pulse">Start</button>
-        <button id="stopRecord" class="btn btn-floating btn-large red pulse">Stop</button>
+    <div class="container">
+    <div id="top" class="container-fluid">
+      <div class="row button-group">
+        <div class="button-group col s6">
+          <button id="record" class="btn btn-floating pulse btn-large green accent-4">Start</button>
+          <button id="stopRecord" class="btn btn-floating btn-large red accent-3">Stop</button>
+        </div>
+        <div id="text-box" class="col s6">
+          <h5>Transcribed Audio</h5>
+          <div id="transcribed-text">
+          </div>
+        </div>
       </div>
       <div class="row">
         <audio id ="audioPlayback" controls = "controls"></audio>
       </div>
+    </div>
+    <div id="preloader" class="progress">
+      <div class="indeterminate"></div>
+    </div>
+    <div id="main" class="container-fluid">
       <div class="row">
-        <div id="transcribed-text">
+        <div id="search" class="col s6">
+          <table class>
+            <thead>
+              <tr>
+                <th>UPC</th>
+                <th>PRODUCT</th>
+                <th>INVENTORY</th>
+              </tr>
+            </thead>
+            <tbody id="list-products">
+            </tbody>
+          </table>
+        </div>
+        <div id="enter-product-form" class="col s6">
+          <form class="col s12">
+            <span>Input New Product:</span>
+            <div class="row">
+              <div class="input-field">
+                <input name="upc" placeholder="Enter Code (UPC)" id="upc" type="text">
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input name="name" placeholder="Enter Name" id="name" type="text">
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input name="inventory" placeholder="Enter Inventory" id="inventory" type="text">
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input id="confirm" class="btn waves-effect waves-light" type="submit">
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-    <div id="main" class="container-fluid">
-      <table class="striped">
-        <thead>
-          <tr>
-              <th>UPC</th>
-              <th>PRODUCT</th>
-              <th>INVENTORY</th>
-              <th>PRICE</th>
-          </tr>
-        </thead>
-        <tbody id="list-products">
-        </tbody>
-      </table>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
