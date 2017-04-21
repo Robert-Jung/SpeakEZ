@@ -47,7 +47,6 @@ app.post('/command', upload.single('file'), (req, res) => {
       console.log(product)
       res.json(product)
     }).catch( (error) => {
-
       res.send(error)
   })
 })
@@ -59,7 +58,6 @@ app.post('/newinventory', (req, res) => {
 })
 
 var port = process.env.PORT || 3000
-console.log('here')
 app.listen(port, () => {
   console.log('Listening on port 3000')
 })
