@@ -1,12 +1,14 @@
 var ffmpeg = require('fluent-ffmpeg')
 
 module.exports = function convertToWav(pathToFile) {
+  console.log(pathToFile)
   var fileName = ('audio' + Date.now() + '.wav')
 
   return new Promise((resolve, reject) => {
     ffmpeg(pathToFile)
       .toFormat('wav')
       .on('error', () => {
+        console.log('ffmeg failed to save')
         reject()
       })
       .on('end', () => {
