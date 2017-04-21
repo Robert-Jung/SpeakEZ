@@ -15,9 +15,7 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
       const blob = new Blob(chunks, { type: 'audio/wav' })
       blobURL = URL.createObjectURL(blob)
       audioElement.setAttribute('src', blobURL)
-      preloader(true)
       uploadFile(blob)
-      preloader(false)
     }
   }
 
@@ -35,6 +33,7 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
 function uploadFile(blob) {
   let formData = new FormData()
   formData.append('file', blob, 'audio.wav')
+  preloader(true)
 
   fetch('/command', {
     method: 'POST',
@@ -107,6 +106,7 @@ function checkCommand(responseObject) {
   }
   else if (responseObject.command === 'error') {
     alert('Please input correct keyword')
+    preloader(false)
   }
 }
 
