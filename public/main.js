@@ -38,13 +38,12 @@ function uploadFile(blob) {
   }).then( json => {
     console.log(json)
     checkCommand(json)
-  })
-.catch(error => {
+  }).catch(error => {
     console.log('Request Failed')
   })
 }
 
-function renderProduct(product, transcription) {
+function renderAll(product, transcription) {
   var collection = []
 
   var $product = document.createElement('tr')
@@ -71,7 +70,7 @@ function renderProduct(product, transcription) {
 
 function checkCommand(responseObject) {
   if (responseObject.command === 'search') {
-    var collection = renderProduct(responseObject.data, responseObject.transcription)
+    var collection = renderAll(responseObject.data, responseObject.transcription)
     var $product = collection[0]
     var $transcription = collection[1]
     document.querySelector('#list-products').appendChild($product)
@@ -93,9 +92,58 @@ function checkCommand(responseObject) {
     input.focus()
   }
   else if (responseObject.command === 'confirm') {
-
+    var confirm = document.querySelector('#confirm')
+    confirm.click()
   }
   else if (responseObject.command === 'error') {
     alert('Please input correct keyword')
   }
 }
+
+function uploadForm() {
+  var data = {
+    upc: document.querySelector('#upc').value,
+    name: document.querySelector('#name').value,
+    inventory: document.querySelector('#inventory').value
+  }
+
+  fetch('/newinventory', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(response => {
+    return response.json()
+  }).then( data => {
+    console.log(data)
+    for (var i = 0; i < data.length; i++) {
+      var $product = renderProduct(data[i])
+      document.querySelector('#list-products').appendChild($product)
+    }
+  }).catch(error => {
+    console.log('Request Failed')
+  })
+}
+
+function renderProduct(product) {
+  var $product = document.createElement('tr')
+  var $upc = document.createElement('td')
+  var $name = document.createElement('td')
+  var $inventory = document.createElement('td')
+
+  $upc.textContent = product.upc
+  $name.textContent = product.name
+  $inventory.textContent = product.inventory
+
+  $product.appendChild($upc)
+  $product.appendChild($name)
+  $product.appendChild($inventory)
+
+  return $product
+}
+
+document.querySelector('#confirm').addEventListener('click', e => {
+  e.preventDefault()
+  uploadForm()
+})

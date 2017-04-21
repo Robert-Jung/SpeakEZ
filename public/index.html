@@ -9,10 +9,11 @@
     <title>Watson Inventory</title>
   </head>
   <body>
+    <div class="container">
     <div id="top" class="container-fluid">
       <div class="row">
         <div class="button-group col s6">
-          <button id="record" class="btn btn-floating btn-large green accent-4">Start</button>
+          <button id="record" class="btn btn-floating pulse btn-large green accent-4">Start</button>
           <button id="stopRecord" class="btn btn-floating btn-large red accent-3">Stop</button>
         </div>
         <div id="text-box" class="col s6">
@@ -45,23 +46,31 @@
             <span>Input New Product:</span>
             <div class="row">
               <div class="input-field">
-                <input placeholder="Enter Code (UPC)" id="upc" type="text">
+                <input name="upc" placeholder="Enter Code (UPC)" id="upc" type="text">
               </div>
             </div>
             <div class="row">
               <div class="input-field">
-                <input placeholder="Enter Name" id="name" type="text">
+                <input name="name" placeholder="Enter Name" id="name" type="text">
               </div>
             </div>
             <div class="row">
               <div class="input-field">
-                <input placeholder="Enter Inventory" id="inventory" type="text">
+                <input name="inventory" placeholder="Enter Inventory" id="inventory" type="text">
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input id="confirm" class="btn waves-effect waves-light" type="submit">
               </div>
             </div>
           </form>
         </div>
       </div>
     </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

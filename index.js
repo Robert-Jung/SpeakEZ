@@ -5,7 +5,7 @@ var multer = require('multer')
 var convertToWav = require('./convert-to-wav')
 var deleteWav = require('./delete-wav')
 var searchString = require('./find-search-string')
-var findProduct = require('./find-product.js')
+var findProduct = require('./find-product')
 var callWatson = require('./call-watson')
 
 var products = [
@@ -29,6 +29,7 @@ var products = [
 var app = express()
 app.use(express.static('public'))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 var upload = multer({ dest:'tmp/' })
 
@@ -48,6 +49,13 @@ app.post('/command', upload.single('file'), (req, res) => {
     }).catch( () => {
       res.sendStatus(500)
   })
+})
+
+app.post('/newinventory', (req, res) => {
+  console.log(req.body)
+    var newInventory = req.body
+    products.push(newInventory)
+    res.status(201).json(products)
 })
 
 app.listen(3000, () => {
