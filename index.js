@@ -59,7 +59,7 @@ app.post('/newinventory', (req, res) => {
 })
 
 var port = process.env.PORT || 3000
-
+console.log('here')
 app.listen(port, () => {
   console.log('Listening on port 3000')
 })
