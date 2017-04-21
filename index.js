@@ -46,8 +46,9 @@ app.post('/command', upload.single('file'), (req, res) => {
     }).then( product => {
       console.log(product)
       res.json(product)
-    }).catch( () => {
-      res.sendStatus(500)
+    }).catch( (error) => {
+
+      res.send(error)
   })
 })
 
