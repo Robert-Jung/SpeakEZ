@@ -1,7 +1,24 @@
+body {
+  background-color: #708090;
+  color: white;
+}
+
+button {
+  margin: 20px;
+}
+
 #top {
   height: 250px;
 }
 
 #audioPlayback {
   display: none;
+}
+
+.progress {
+  display: contents;
+}
+
+.button-group {
+  padding: 80px;
 }

@@ -1,3 +1,5 @@
+preloader(false)
+
 navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
   var recorder = new MediaRecorder(stream)
   var audioElement = document.querySelector('#audioPlayback')
@@ -13,14 +15,18 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
       const blob = new Blob(chunks, { type: 'audio/wav' })
       blobURL = URL.createObjectURL(blob)
       audioElement.setAttribute('src', blobURL)
+      preloader(true)
       uploadFile(blob)
+      preloader(false)
     }
   }
 
   document.getElementById('record').addEventListener('click', () => {
+    preloader(true)
     recorder.start()
   })
   document.getElementById('stopRecord').addEventListener('click', () => {
+    preloader(false)
     recorder.stop()
   })
 
@@ -75,21 +81,25 @@ function checkCommand(responseObject) {
     var $transcription = collection[1]
     document.querySelector('#list-products').appendChild($product)
     document.querySelector('#transcribed-text').appendChild($transcription)
+    preloader(false)
   }
   else if (responseObject.command === 'enter code') {
     var input = document.querySelector('#upc')
     input.value = responseObject.data
     input.focus()
+    preloader(false)
   }
   else if (responseObject.command === 'enter name') {
     var input = document.querySelector('#name')
     input.value = responseObject.data
     input.focus()
+    preloader(false)
   }
   else if (responseObject.command === 'enter inventory') {
     var input = document.querySelector('#inventory')
     input.value = responseObject.data
     input.focus()
+    preloader(false)
   }
   else if (responseObject.command === 'confirm') {
     var confirm = document.querySelector('#confirm')
@@ -116,10 +126,10 @@ function uploadForm() {
   }).then(response => {
     return response.json()
   }).then( data => {
-    console.log(data)
     for (var i = 0; i < data.length; i++) {
       var $product = renderProduct(data[i])
       document.querySelector('#list-products').appendChild($product)
+
     }
   }).catch(error => {
     console.log('Request Failed')
@@ -143,7 +153,18 @@ function renderProduct(product) {
   return $product
 }
 
+function preloader(loading) {
+  var bar = document.querySelector('#preloader')
+
+  if (loading) {
+    bar.classList.add('progress')
+  } else {
+    bar.classList.remove('progress')
+  }
+}
+
 document.querySelector('#confirm').addEventListener('click', e => {
   e.preventDefault()
   uploadForm()
+  preloader(false)
 })

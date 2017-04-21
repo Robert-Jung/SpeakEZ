@@ -52,7 +52,6 @@ app.post('/command', upload.single('file'), (req, res) => {
 })
 
 app.post('/newinventory', (req, res) => {
-  console.log(req.body)
     var newInventory = req.body
     products.push(newInventory)
     res.status(201).json(products)

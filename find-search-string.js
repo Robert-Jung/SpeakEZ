@@ -18,7 +18,6 @@ module.exports = function searchString(transcription) {
     return productObj
   }
   else if (enterUPC) {
-    console.log(enterUPC)
     productObj.command = 'enter code'
     productObj.data = convertToValue(transcriptionArray)
     return productObj
