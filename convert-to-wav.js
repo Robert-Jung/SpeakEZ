@@ -6,7 +6,8 @@ module.exports = function convertToWav(pathToFile) {
   return new Promise((resolve, reject) => {
     ffmpeg(pathToFile)
       .toFormat('wav')
-      .on('error', () => {
+      .on('error', (error) => {
+        console.log('ffmeg failed to save', error)
         reject()
       })
       .on('end', () => {
