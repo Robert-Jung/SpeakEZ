@@ -1,11 +1,12 @@
 var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1')
 var fs = require('fs')
+require('dotenv').config()
 
 module.exports = function callWatson(audioFile) {
   return new Promise((resolve, reject) => {
     var speech_to_text = new SpeechToTextV1({
-      username: "913fcb97-7161-40a4-be85-539b7cd4037c",
-      password: "B2n3Q23KKYeV",
+      username: process.env.USERNAME_KEY,
+      password: process.env.PASSWORD_KEY,
       headers: {
         'X-Watson-Learning-Opt-Out': 'true'
       }
