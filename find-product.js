@@ -1,13 +1,13 @@
-module.exports = function findProduct(productObj, arr) {
-  if (productObj.command === 'search') {
-    for (var i = 0; i < arr.length; i++) {
-      if (productObj.data === arr[i].upc) {
-        productObj.data = arr[i]
-        return productObj
+module.exports = function findProduct(productData, productList) {
+  if (productData.command === 'search') {
+    for (var i = 0; i < productList.length; i++) {
+      if (productData.data === productList[i].upc) {
+        productData.data = productList[i]
+        return productData
       }
     }
   }
   else {
-    return productObj
+    return productData
   }
 }

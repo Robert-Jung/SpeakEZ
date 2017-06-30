@@ -1,3 +1,5 @@
+//Send Watson API wav file to be transcribed.
+
 var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1')
 var fs = require('fs')
 require('dotenv').config()

@@ -1,3 +1,5 @@
+//Match keyword from transcription to return command.
+
 module.exports = function searchString(transcription) {
   var transcriptionArray = (transcription.split(' '))
   var isSearch = transcriptionArray.includes('search')
@@ -6,40 +8,40 @@ module.exports = function searchString(transcription) {
   var enterInventory = checkIncludes('enter', 'inventory', transcription)
   var isConfirm = transcriptionArray.includes('confirm')
 
-  var productObj = {
+  var productData = {
     transcription: transcription,
     command: '',
     data: ''
   }
 
   if (isSearch) {
-    productObj.command = 'search'
-    productObj.data = convertToValue(transcriptionArray)
-    return productObj
+    productData.command = 'search'
+    productData.data = convertToValue(transcriptionArray)
+    return productData
   }
   else if (enterUPC) {
-    productObj.command = 'enter code'
-    productObj.data = convertToValue(transcriptionArray)
-    return productObj
+    productData.command = 'enter code'
+    productData.data = convertToValue(transcriptionArray)
+    return productData
   }
   else if (enterName) {
-    productObj.command = 'enter name'
+    productData.command = 'enter name'
     convertToValue(transcriptionArray)
-    productObj.data = transcriptionArray.slice(2)
-    return productObj
+    productData.data = transcriptionArray.slice(2)
+    return productData
   }
   else if (enterInventory) {
-    productObj.command = 'enter inventory'
-    productObj.data = convertToValue(transcriptionArray)
-    return productObj
+    productData.command = 'enter inventory'
+    productData.data = convertToValue(transcriptionArray)
+    return productData
   }
   else if (isConfirm) {
-    productObj.command = 'confirm'
-    return productObj
+    productData.command = 'confirm'
+    return productData
   }
   else {
-    productObj.command = 'error'
-    return productObj
+    productData.command = 'error'
+    return productData
   }
 }
 

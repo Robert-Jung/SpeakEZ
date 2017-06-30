@@ -1,3 +1,5 @@
+//Convert audio blob to wav format.
+
 var ffmpeg = require('fluent-ffmpeg')
 
 module.exports = function convertToWav(pathToFile) {
