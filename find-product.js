@@ -1,3 +1,5 @@
+//Keyword = search: Loop through productList, match product's UPC, and return product data.
+
 module.exports = function findProduct(productData, productList) {
   if (productData.command === 'search') {
     for (var i = 0; i < productList.length; i++) {
