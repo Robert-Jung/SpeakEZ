@@ -7,8 +7,8 @@ require('dotenv').config()
 module.exports = function callWatson(audioFile) {
   return new Promise((resolve, reject) => {
     var speech_to_text = new SpeechToTextV1({
-      access_key_id: process.env.USERNAME_KEY,
-      secret_access_key: process.env.PASSWORD_KEY,
+      accessKeyId: process.env.USERNAME_KEY,
+      secretAccessKey: process.env.PASSWORD_KEY,
       headers: {
         'X-Watson-Learning-Opt-Out': 'true'
       }
