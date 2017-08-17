@@ -1,11 +1,11 @@
-//Delete temporary wav file.
+//Delete wav.
 
 module.exports = function deleteWav(pathToFile) {
   var fs = require('fs')
-  fs.unlinkSync(pathToFile, (err) => {
+  fs.unlink(pathToFile, (err) => {
     if (err) {
       return console.error(err)
     }
-    console.log('File Deleted!!')
+    console.log('Wav Deleted!')
   })
 }

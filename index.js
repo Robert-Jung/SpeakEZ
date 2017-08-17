@@ -3,6 +3,7 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var multer = require('multer')
 var convertToWav = require('./convert-to-wav')
+var deleteAudioBlob = require('./delete-audioBlob')
 var deleteWav = require('./delete-wav')
 var searchString = require('./find-search-string')
 var findProduct = require('./find-product')
@@ -37,10 +38,11 @@ app.post('/command', upload.single('file'), (req, res) => {
   console.log(req.file)
   convertToWav(req.file.path)
     .then( fileName => {
-      deleteWav(req.file.path)
+      deleteAudioBlob(req.file.path)
       return callWatson('./transcribe/' + fileName)
-    }).then( transcription => {
-      return searchString(transcription)
+    }).then( result => {
+      deleteWav(result.audioFile)
+      return searchString(result.transcription)
     }).then( productData => {
       return findProduct(productData, products)
     }).then( product => {

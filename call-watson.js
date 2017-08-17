@@ -3,9 +3,9 @@
 var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1')
 var fs = require('fs')
 require('dotenv').config()
-console.log(process.env)
 
 module.exports = function callWatson(audioFile) {
+
   return new Promise((resolve, reject) => {
     var speech_to_text = new SpeechToTextV1({
       username: process.env.USERNAME_KEY,
@@ -25,7 +25,11 @@ module.exports = function callWatson(audioFile) {
         reject(err)
       }
       else {
-        resolve(res.results[0].alternatives[0].transcript.trim())
+        const transcription = res.results[0].alternatives[0].transcript.trim()
+        resolve({
+          transcription,
+          audioFile,
+          })
       }
     })
   })
